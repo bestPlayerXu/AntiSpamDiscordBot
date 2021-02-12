@@ -18,7 +18,7 @@ client.on('message', msg => {
 		if (Object.keys(aM.reduce((a, b) => {
 			a[b.author.id + (b.content.length > process.env.MAX_LENGTH_OF_NOT_SPAM ? b.content : Date.now())] = true;
 			return a;
-		}, {})).length === 1 && m.first().createdTimestamp - m.last().createdTimestamp < process.env.TIME_BETWEEN_MESSAGES) try { msg.member.ban() } catch (e) { client.login(process.env.BOT_TOKEN) };
+		}, {})).length === 1 && m.first().createdTimestamp - m.last().createdTimestamp < process.env.TIME_BETWEEN_MESSAGES) msg.member.ban({ days: 1 }).catch(() => console.log('can\'t ban spammer'));
 	});
 });
 
